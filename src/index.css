@@ -1,0 +1,23 @@
+@import "tailwindcss";
+
+:root {
+  --textPrimary: #3d3b38;
+  --color4A4740: #4a4740;
+  --color6B675F: #6b675f;
+  --color5A5654: #5a5654;
+  --color3A3A3A: #3a3a3a;
+  --color2A2A2A: #2a2a2a;
+  --placeholderIdle: #9a968b;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  color: var(--textPrimary);
+  background: #f8f7f4;
+}
