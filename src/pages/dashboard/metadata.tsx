@@ -13,6 +13,7 @@ type MetaDataForm = {
   sessionCooldownSeconds?: number | "";
   backgroundResetSeconds?: number | "";
   idleResetSeconds?: number | "";
+  aiModel?: "gpt-4o-mini" | "gpt-3.5-turbo" | "";
   systemPrompt?: string;
 };
 
@@ -75,6 +76,7 @@ const MetaDataPage = () => {
     sessionCooldownSeconds: "",
     backgroundResetSeconds: "",
     idleResetSeconds: "",
+    aiModel: "",
     systemPrompt: "",
   });
 
@@ -86,6 +88,7 @@ const MetaDataPage = () => {
         sessionCooldownSeconds: numberOrEmpty(metaData.sessionCooldownSeconds),
         backgroundResetSeconds: numberOrEmpty(metaData.backgroundResetSeconds),
         idleResetSeconds: numberOrEmpty(metaData.idleResetSeconds),
+        aiModel: metaData.aiModel || "",
         systemPrompt: metaData.systemPrompt || "",
       });
     }
@@ -120,6 +123,7 @@ const MetaDataPage = () => {
       const v = (form as any)[k];
       if (v !== "" && v !== undefined) out[k] = Number(v);
     });
+    if (form.aiModel) out.aiModel = form.aiModel;
     if (form.systemPrompt !== undefined) out.systemPrompt = form.systemPrompt;
     return out;
   }, [form]);
@@ -199,6 +203,24 @@ const MetaDataPage = () => {
             onChange={(value) => setForm((p) => ({ ...p, idleResetSeconds: value }))}
             placeholder="300"
           />
+          <div>
+            <label className="mb-1 block text-sm font-medium text-[color:var(--color4A4740)]">
+              AI Model
+            </label>
+            <select
+              value={form.aiModel ?? ""}
+              onChange={(e) =>
+                setForm((p) => ({ ...p, aiModel: e.target.value as any }))
+              }
+              className="w-full rounded-xl border border-black/10 bg-white px-3 py-2 text-sm outline-none focus:border-black/20"
+            >
+              <option value="" disabled>
+                Select model
+              </option>
+              <option value="gpt-4o-mini">gpt-4o-mini</option>
+              <option value="gpt-3.5-turbo">gpt-3.5-turbo</option>
+            </select>
+          </div>
         </div>
 
         <div>
